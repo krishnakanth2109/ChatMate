@@ -1,0 +1,76 @@
+/* src/index.css */
+
+/* DO NOT import the default 'react-phone-number-input/style.css'. */
+/* We will style it ourselves below. */
+
+/* --- TAILWIND DIRECTIVES (MUST BE AT THE TOP) --- */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* 
+  --- CUSTOM BASE STYLES & LIBRARY OVERRIDES ---
+  This is the correct, professional way to style the phone input library.
+  We are styling its raw classes directly with Tailwind's @apply.
+*/
+
+/* Apply base styles to the main wrapper of the phone input */
+.PhoneInput {
+  @apply flex items-center;
+}
+
+/* Style the input field where the number is typed */
+.PhoneInputInput {
+  @apply flex-1 bg-transparent text-white outline-none border-none placeholder-gray-400 caret-white;
+}
+
+/* Style the country select dropdown button */
+.PhoneInputCountry {
+  @apply relative pr-6; /* Use padding-right to make space for the arrow */
+}
+
+/* Style the flag icon */
+.PhoneInputCountryIcon {
+  @apply w-6 h-auto shadow-none;
+}
+
+/* Style the dropdown arrow */
+.PhoneInputCountrySelectArrow {
+  @apply w-2 h-2 ml-2 opacity-70 border-r-2 border-b-2 border-white transform rotate-45 transition-transform;
+}
+
+/* Style the dropdown menu that appears (THE FIX for the white box) */
+.PhoneInputCountrySelect-menu {
+  @apply bg-slate-800 border border-slate-700 text-white rounded-lg shadow-xl mt-2 overflow-hidden;
+  max-height: 200px; /* Prevent it from being too long */
+}
+
+/* Style a single country option in the dropdown */
+.PhoneInputCountrySelect-option {
+  @apply flex items-center p-2 cursor-pointer hover:bg-blue-600;
+}
+.PhoneInputCountrySelect-option--selected {
+  @apply bg-blue-700;
+}
+
+/* --- OTHER LIBRARY STYLES (UNCHANGED) --- */
+.ReactCrop__crop-selection {
+  border: 2px dashed rgba(255, 255, 255, 0.7) !important;
+}
+.ReactCrop__image {
+  max-height: 70vh !important;
+}
+/* Custom Scrollbar for Webkit */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 8px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  @apply bg-slate-700 rounded-full;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-600;
+}
