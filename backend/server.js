@@ -140,13 +140,16 @@ io.on('connection', (socket) => {
     }
   });
 
-  socket.on('send_message', async (data) => {
+  socket.on('send_message', async (data, callback) => {
     try {
       const { sender: senderId, receiver: receiverId, messageType, content, fileUrl, fileName, location } = data;
       const sender = await User.findById(senderId);
       
       // 1. Validation
       if (!sender || !sender.contacts.includes(receiverId)) {
+        if (typeof callback === 'function') {
+          return callback({ status: 'error', message: 'You are not connected with this user.' });
+        }
         return socket.emit('error', { message: 'You are not connected with this user.' });
       }
 
@@ -200,11 +203,19 @@ io.on('connection', (socket) => {
         }
       }
 
-      // Acknowledge sender (loopback)
-      socket.emit('receive_message', newMessage);
+      // Acknowledge sender
+      if (typeof callback === 'function') {
+        callback({ status: 'ok', data: newMessage });
+      } else {
+        // fallback for older client implementation
+        socket.emit('receive_message', newMessage);
+      }
 
     } catch (error) {
       console.error("Error sending message:", error);
+      if (typeof callback === 'function') {
+        callback({ status: 'error', message: 'Internal server error.' });
+      }
     }
   });
 

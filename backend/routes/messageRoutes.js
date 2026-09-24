@@ -20,14 +20,22 @@ router.get('/:userId', protect, async (req, res) => {
       return res.status(403).json({ msg: 'You are not connected with this user.' });
     }
 
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 20;
+    const skip = (page - 1) * limit;
+
     // Find all messages where the sender and receiver are the two users
     const messages = await Message.find({
       $or: [
         { sender: loggedInUserId, receiver: otherUserId },
         { sender: otherUserId, receiver: loggedInUserId },
       ],
-    }).sort({ createdAt: 'asc' }); // Sort by creation time to get the correct order
+    })
+      .sort({ createdAt: 'desc' }) // Get latest first
+      .skip(skip)
+      .limit(limit);
 
+    // Return descending for inverted FlatList
     res.json(messages);
 
   } catch (error) {
