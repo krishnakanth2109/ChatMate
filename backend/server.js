@@ -113,6 +113,9 @@ const getNotificationBody = (type, content) => {
   }
 };
 
+app.set('io', io);
+app.set('userSocketMap', userSocketMap);
+
 io.on('connection', (socket) => {
   // Support both query strings and Socket.IO v4+ auth payloads
   const userId = socket.handshake.query.userId || socket.handshake.auth?.userId;
