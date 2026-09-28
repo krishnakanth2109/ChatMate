@@ -66,7 +66,7 @@ router.post('/invite/:userId', protect, async (req, res) => {
         
         if (!targetUser) return res.status(404).json({ msg: 'User not found' });
         
-        if (user.sentInvites.includes(targetUser._id)) {
+        if (user.sentInvites.some(inviteId => inviteId.toString() === targetUser._id.toString())) {
             return res.status(400).json({ msg: 'Invite already sent' });
         }
         

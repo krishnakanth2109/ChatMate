@@ -17,7 +17,7 @@ router.get('/:userId', protect, async (req, res) => {
 
     // Security check: Ensure the other user is in the contact list
     const user = await User.findById(loggedInUserId);
-    if (!user.contacts.includes(otherUserId)) {
+    if (!user.contacts.some(contactId => contactId.toString() === otherUserId.toString())) {
       return res.status(403).json({ msg: 'You are not connected with this user.' });
     }
 
@@ -54,7 +54,7 @@ router.post('/', protect, async (req, res) => {
     const { receiver: receiverId, messageType, content, fileUrl, fileName, location } = req.body;
     
     const sender = await User.findById(senderId);
-    if (!sender || !sender.contacts.includes(receiverId)) {
+    if (!sender || !sender.contacts.some(contactId => contactId.toString() === receiverId.toString())) {
       return res.status(403).json({ status: 'error', message: 'You are not connected with this user.' });
     }
 

@@ -149,7 +149,7 @@ io.on('connection', (socket) => {
       const sender = await User.findById(senderId);
       
       // 1. Validation
-      if (!sender || !sender.contacts.includes(receiverId)) {
+      if (!sender || !sender.contacts.some(c => c.toString() === receiverId.toString())) {
         if (typeof callback === 'function') {
           return callback({ status: 'error', message: 'You are not connected with this user.' });
         }
