@@ -241,10 +241,10 @@ io.on('connection', (socket) => {
   });
 
   // --- WEBRTC CALLING EVENTS ---
-  socket.on('call_user', ({ userToCall, signalData, from, name }) => {
+  socket.on('call_user', ({ userToCall, signalData, from, name, isVideo }) => {
     const receiverSocketIds = userSocketMap[userToCall];
     if (receiverSocketIds) {
-      receiverSocketIds.forEach(socketId => io.to(socketId).emit('incoming_call', { signal: signalData, from, name }));
+      receiverSocketIds.forEach(socketId => io.to(socketId).emit('incoming_call', { signal: signalData, from, name, isVideo }));
     }
   });
 

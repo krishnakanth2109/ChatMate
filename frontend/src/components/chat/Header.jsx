@@ -9,8 +9,8 @@ const Header = ({ hasNotifications, onBellClick, onProfileClick }) => {
   return (
     <header className="bg-slate-900 p-4 flex justify-between items-center text-white shadow-lg z-30 flex-shrink-0">
       <div className="flex items-center space-x-3">
-        <div className="bg-gradient-to-tr from-cyan-400 to-blue-500 rounded-full p-2 text-xl shadow-md">
-          <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" /></svg>
+        <div className="bg-white rounded-full p-1 shadow-md overflow-hidden flex items-center justify-center" style={{ width: 40, height: 40 }}>
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ75NmHmHBD8KHvGhI6Ye3lBY6yawqAXke98VmgkJ2irQ&s=10" alt="ChatMate Logo" className="w-full h-full object-cover" />
         </div>
         <h1 className="text-2xl font-bold tracking-wide">ChatMate</h1>
       </div>
